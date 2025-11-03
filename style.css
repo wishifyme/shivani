@@ -15,9 +15,6 @@
     --color-bg-letter: #fff8e4;
     --color-border: #DACCBF;
 }
-#wrapper {
-  display: none;
-}
 /* Add to your existing style.css or within <style> tags */
 #passwordModal {
   position: fixed;
@@ -1156,4 +1153,5 @@ body {
   background: #da5c82;
 
 }
+
 
