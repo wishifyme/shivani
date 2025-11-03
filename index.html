@@ -61,6 +61,27 @@
     user-select: none;
     transition: filter 0.3s ease;
   }
+
+  /* Hide boxMail initially */
+  .boxMail {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    z-index: 10000;
+  }
+  .boxMail i.fa-xmark {
+    cursor: pointer;
+    float: right;
+    font-size: 24px;
+    color: #333;
+  }
 </style>
 </head>
 <body>
@@ -184,7 +205,7 @@
   </div>
 
   <!-- Mail box, photo reel, footer etc. -->
-  <div class="boxMail" style="display:none;">
+  <div class="boxMail">
     <i class="fa-solid fa-xmark"></i>
     <div class="boxMail-container">
       <div class="card1">
@@ -243,55 +264,58 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Password modal related
+    // Password modal
     const modal = document.getElementById('passwordModal');
     const passwordInput = document.getElementById('passwordInput');
     const submitBtn = document.getElementById('submitPassword');
-    const wrapper = document.getElementById("wrapper");
-    const boxMail = document.querySelector(".boxMail");
-    const closeMail = boxMail.querySelector("i.fa-xmark");
+    const wrapper = document.getElementById('wrapper');
+    const boxMail = document.querySelector('.boxMail');
+    const closeMail = boxMail.querySelector('i.fa-xmark');
+    const btnLetter = document.getElementById('btn__letter');
+    const btnMusic = document.getElementById('btn__music');
+    const bgMusic = document.getElementById('bgmusic');
 
-    // Hide wrapper initially and blur (done via CSS display:none)
-    // Show wrapper when correct password entered
+    // Initially hide main wrapper
+    wrapper.style.display = 'none';
+
+    // Show wrapper after correct password
     submitBtn.onclick = function () {
       if (passwordInput.value === "shivani") {
-        modal.style.display = "none"; // Hide modal
-        wrapper.style.display = "block";
-        wrapper.classList.remove("blur"); // Remove blur if added
+        modal.style.display = 'none';
+        wrapper.style.display = 'block';
       } else {
         alert("Incorrect password. Please try again.");
-        passwordInput.value = "";
+        passwordInput.value = '';
         passwordInput.focus();
       }
     };
 
-    passwordInput.addEventListener("keyup", function (event) {
-      if (event.key === "Enter") {
+    passwordInput.addEventListener('keyup', function (event) {
+      if (event.key === 'Enter') {
         submitBtn.click();
       }
     });
 
-    passwordInput.focus();
+    // Click Here button to open message box
+    btnLetter.addEventListener('click', function () {
+      boxMail.style.display = 'block';
+    });
 
-    // Button: Play Music
-    document.getElementById('btn__music').addEventListener('click', function() {
-      const music = document.getElementById('bgmusic');
-      if (music.paused) {
-        music.play();
+    // Close message box on X click
+    closeMail.addEventListener('click', function () {
+      boxMail.style.display = 'none';
+    });
+
+    // Play Music button toggles music play/pause
+    btnMusic.addEventListener('click', function () {
+      if (bgMusic.paused) {
+        bgMusic.play();
       } else {
-        music.pause();
+        bgMusic.pause();
       }
     });
 
-    // Button: Click Here to open message box
-    document.getElementById('btn__letter').addEventListener('click', function() {
-      boxMail.style.display = "block";
-    });
-
-    // Close button for message box
-    closeMail.addEventListener('click', function() {
-      boxMail.style.display = "none";
-    });
+    passwordInput.focus();
   });
 </script>
 
