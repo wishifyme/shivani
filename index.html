@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Happy Birthday Shivani</title>
 
-<!-- Your existing CSS links -->
+<!-- CSS -->
 <link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
-  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-<!-- Inline CSS for password modal and blur -->
 <style>
   /* Password modal styles */
   #passwordModal {
@@ -54,33 +52,169 @@
   #submitPassword:hover {
     background-color: #e0894f;
   }
-  /* Blur effect for background when password modal is active */
-  .blur {
-    filter: blur(20px);
-    pointer-events: none; /* prevent interaction */
-    user-select: none;
-    transition: filter 0.3s ease;
-  }
-
-  /* Hide boxMail initially */
+  /* Message box */
   .boxMail {
-    display: none;
     position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    opacity: 0;
+    transform: scale(0.3);
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
     z-index: 10000;
   }
-  .boxMail i.fa-xmark {
+  .boxMail.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+  .boxMail .boxMail-container {
+    position: relative;
+    width: 90vw;
+    max-width: 750px;
+    height: 500px;
+    display: flex;
+    perspective: 2000px;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+  }
+  .boxMail .fa-xmark {
+    position: fixed;
+    top: 10px; right: 10px;
+    font-size: 32px;
+    color: white;
     cursor: pointer;
-    float: right;
-    font-size: 24px;
-    color: #333;
+    z-index: 10001;
+  }
+  .boxMail .card1, .boxMail .card2 {
+    width: 50%;
+    height: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .boxMail .card1 {
+    background: linear-gradient(to right, #FF7882, #FF7882 63%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .boxMail .card1 .userImg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid white;
+    margin-bottom: 1rem;
+  }
+  .boxMail .card1 .userImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .boxMail .card1 h3 {
+    font-size: 40px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 5px white, 0 0 10px white;
+    margin-bottom: 0.5rem;
+  }
+  .boxMail .card2 {
+    background: #FF7882;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .boxMail .card2-content h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .boxMail .card2-content h2 {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  /* Photo reel styles */
+  .photoreel-wrapper {
+    margin: 35px 0 30px 0;
+  }
+  .photoreel-title {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-left: 12px;
+  }
+  .photoreel {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+  }
+  .photoreel img,
+  .photoreel video {
+    flex-shrink: 0;
+    width: 220px;
+    height: 350px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #242324;
+    background: #efe4ea;
+    box-shadow: 0 6px 20px rgba(245,60,130,0.12);
+    transition: transform 0.16s;
+  }
+  .photoreel img:hover,
+  .photoreel video:hover {
+    transform: scale(1.04);
+    border-color: #fd88c2;
+  }
+  .photoreel::-webkit-scrollbar {
+    height: 14px;
+  }
+  .photoreel::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: linear-gradient(90deg, #fd88c2 30%, #fde3f3 80%);
+  }
+  .photoreel::-webkit-scrollbar-track {
+    background: #fff0f8;
+    border-radius: 8px;
+  }
+
+  /* Button layout */
+  .btn {
+    display: flex;
+    gap: 12px;
+  }
+  .btn #btn__music, .btn #btn__letter {
+    background: linear-gradient(90deg, #ff82a9, #ffc5db);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    box-shadow: 0 3px 10px #ff7a9f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background 0.3s;
+  }
+  .btn .music-icon, .btn .mail {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .btn #btn__music:hover {
+    background: #da5c82;
   }
 </style>
 </head>
@@ -95,13 +229,16 @@
   </div>
 </div>
 
-<!-- Main website content starts here -->
+<!-- Main wrapper hidden until password entered -->
 <div id="wrapper" style="display:none;">
-  <!-- Your existing main content -->
+
+  <!-- Your existing website content -->
+
   <div class="flag__birthday">
     <img src="./1.png" alt="" width="350" class="flag__left" />
     <img src="1.png" alt="" width="350" class="flag__right" />
   </div>
+
   <div class="content">
     <div class="left">
       <div class="title">
@@ -127,6 +264,7 @@
         </div>
       </div>
       <div class="date__of__birth"><span></span></div>
+
       <div class="btn">
         <button id="btn__letter">
           <div class="mail">
@@ -134,7 +272,6 @@
             <i class="fa-regular fa-envelope"></i>
           </div>
         </button>
-        <br /><br /><br />
         <button id="btn__music">
           <div class="music-icon">
             Play Music
@@ -142,6 +279,7 @@
           </div>
         </button>
       </div>
+
       <audio id="bgmusic" src="music.mp3"></audio>
     </div>
 
@@ -184,11 +322,13 @@
       </div>
     </div>
   </div>
+
   <div class="decorate_star star1" style="--t: 15s;"></div>
   <div class="decorate_star star2" style="--t: 15.2s;"></div>
   <div class="decorate_star star3" style="--t: 15.4s;"></div>
   <div class="decorate_star star4" style="--t: 15.6s;"></div>
   <div class="decorate_star star5" style="--t: 15.8s;"></div>
+
   <div class="decorate_flower--one" style="--t: 15s;">
     <img width="20" src="decorate_flower.png" alt="" />
   </div>
@@ -198,55 +338,57 @@
   <div class="decorate_flower--three" style="--t: 15.6s;">
     <img width="20" src="decorate_flower.png" alt="" />
   </div>
+
   <div class="decorate_bottom">
     <img src="decorate.png" alt="" width="100" />
   </div>
+
   <div class="smiley__icon">
     <img src="smiley_icon.png" alt="" width="100" />
   </div>
 
-  <!-- Mail box -->
-  <div class="boxMail">
-    <i class="fa-solid fa-xmark"></i>
+  <!-- Mail box popup -->
+  <div class="boxMail" role="dialog" aria-modal="true" aria-labelledby="boxMailTitle" aria-describedby="boxMailDesc">
+    <i class="fa-solid fa-xmark" title="Close message box"></i>
     <div class="boxMail-container">
       <div class="card1">
-        <div class="userImg"><img src="photo 2.jpeg" alt="" /></div>
-        <h4 class="username">To: Shivani 💖<span class="underline"></span></h4>
+        <div class="userImg"><img src="photo 2.jpeg" alt="Photo of sender" /></div>
+        <h4 class="username" id="boxMailTitle">To: Shivani 💖</h4>
         <h3>Happy Birthday</h3>
-        <div class="imageCute"><img src="cute1.png" alt="" /></div>
+        <div class="imageCute"><img src="cute1.png" alt="Cute decoration" /></div>
       </div>
-      <div class="card2">
+      <div class="card2" id="boxMailDesc">
         <div class="card2-content">
           <h3>To You!</h3>
           <h2>Dear Shivani,<br>
             You’ve been more than a best friend — you’re family, laughter, and endless memories rolled into one. I hope your day is filled with all the love, joy, and surprises you deserve. Here’s to another year of chasing dreams, making beautiful moments, and smiling through it all. Love you endlessly! ❤️<br><br>
             From Anushka❤
           </h2>
-          <div class="imageCute2"><img src="cute2.png" alt="" /></div>
+          <div class="imageCute2"><img src="cute2.png" alt="Cute decoration" /></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Photo Reel -->
+<!-- Photo Reel section -->
 <div class="photoreel-wrapper">
   <h2 class="photoreel-title">Photo Reel</h2>
   <div class="photoreel">
-    <img src="photo 3.jpeg" alt="Photo 1" />
-    <img src="photo 4.jpeg" alt="Photo 2" />
-    <img src="photo 5.jpeg" alt="Photo 3" />
-    <img src="photo 6.jpeg" alt="Photo 4" />
-    <img src="photo 7.jpeg" alt="Photo 5" />
+    <img src="photo 3.jpeg" alt="Photo 3" />
+    <img src="photo 4.jpeg" alt="Photo 4" />
+    <img src="photo 5.jpeg" alt="Photo 5" />
+    <img src="photo 6.jpeg" alt="Photo 6" />
+    <img src="photo 7.jpeg" alt="Photo 7" />
     <video autoplay muted loop playsinline>
       <source src="video.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    <img src="photo 8.jpeg" alt="Photo 6" />
-    <img src="photo 9.jpeg" alt="Photo 7" />
-    <img src="photo 10.jpeg" alt="Photo 8" />
-    <img src="photo 11.jpeg" alt="Photo 9" />
-    <img src="photo 12.jpeg" alt="Photo 10" />
+    <img src="photo 8.jpeg" alt="Photo 8" />
+    <img src="photo 9.jpeg" alt="Photo 9" />
+    <img src="photo 10.jpeg" alt="Photo 10" />
+    <img src="photo 11.jpeg" alt="Photo 11" />
+    <img src="photo 12.jpeg" alt="Photo 12" />
   </div>
 </div>
 
@@ -269,14 +411,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const wrapper = document.getElementById('wrapper');
   const passwordInput = document.getElementById('passwordInput');
   const submitBtn = document.getElementById('submitPassword');
+
   const btnLetter = document.getElementById('btn__letter');
   const boxMail = document.querySelector('.boxMail');
-  const closeMail = boxMail.querySelector('.fa-xmark');
+  const closeMail = document.querySelector('.boxMail .fa-xmark');
+
   const btnMusic = document.getElementById('btn__music');
   const bgMusic = document.getElementById('bgmusic');
 
-  // Password check
-  submitBtn.addEventListener('click', function () {
+  // Password check and show main content
+  submitBtn.addEventListener('click', () => {
     if (passwordInput.value === "shivani") {
       modal.style.display = 'none';
       wrapper.style.display = 'block';
@@ -287,48 +431,46 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Enter key to submit password
-  passwordInput.addEventListener('keyup', function (event) {
-    if (event.key === 'Enter') {
-      submitBtn.click();
-    }
+  // Press Enter to submit password
+  passwordInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') submitBtn.click();
   });
+
+  // Focus input on load
+  passwordInput.focus();
 
   // Show message box on "Click Here"
-  btnLetter.addEventListener('click', function () {
-    boxMail.style.display = 'block';
+  btnLetter.addEventListener('click', () => {
+    boxMail.classList.add('active');
   });
 
-  // Close message box on X click
-  closeMail.addEventListener('click', function () {
-    boxMail.style.display = 'none';
+  // Close message box on X
+  closeMail.addEventListener('click', () => {
+    boxMail.classList.remove('active');
   });
 
-  // Play/pause music
+  // Music toggle
   let musicPlaying = false;
-  btnMusic.addEventListener('click', function () {
+  btnMusic.addEventListener('click', () => {
     if (!musicPlaying) {
       bgMusic.play();
       btnMusic.querySelector('i').className = "fa-solid fa-pause";
-      btnMusic.querySelector('.music-icon').firstChild.nodeValue = "Pause Music ";
+      btnMusic.querySelector('.music-icon').childNodes[0].nodeValue = "Pause Music ";
       musicPlaying = true;
     } else {
       bgMusic.pause();
       btnMusic.querySelector('i').className = "fa-solid fa-music";
-      btnMusic.querySelector('.music-icon').firstChild.nodeValue = "Play Music ";
+      btnMusic.querySelector('.music-icon').childNodes[0].nodeValue = "Play Music ";
       musicPlaying = false;
     }
   });
 
-  // Reset button icon when music ends
-  bgMusic.onended = () => {
+  // Reset button when music ends
+  bgMusic.addEventListener('ended', () => {
     btnMusic.querySelector('i').className = "fa-solid fa-music";
-    btnMusic.querySelector('.music-icon').firstChild.nodeValue = "Play Music ";
+    btnMusic.querySelector('.music-icon').childNodes[0].nodeValue = "Play Music ";
     musicPlaying = false;
-  };
-
-  // Set focus on password input on load
-  passwordInput.focus();
+  });
 });
 </script>
 
