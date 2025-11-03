@@ -312,11 +312,37 @@ bgMusic.onended = () => {
   musicBtn.querySelector('.music-icon').firstChild.nodeValue = "Play Music ";
   musicPlaying = false;
 };
-
+document.addEventListener("DOMContentLoaded", function () {
+  let correctPassword = "shivani";
+  let attempts = 3;
+  function askPassword() {
+    let userPass = prompt("Please enter the password to access this site:");
+    if (userPass === null) {
+      // User pressed cancel
+      alert("Access denied!");
+      // Optionally redirect or close window here
+      return;
+    }
+    if (userPass.toLowerCase() === correctPassword) {
+      document.getElementById("wrapper").style.display = "block";
+    } else {
+      attempts--;
+      if (attempts > 0) {
+        alert(`Incorrect password. You have ${attempts} attempt(s) left.`);
+        askPassword();
+      } else {
+        alert("Access denied. You have exhausted all attempts.");
+        // Optionally redirect or close window here
+      }
+    }
+  }
+  askPassword();
+});
 </script>
 
 
 </html>
+
 
 
 
