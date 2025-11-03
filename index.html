@@ -263,21 +263,128 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Password modal
-    const modal = document.getElementById('passwordModal');
-    const passwordInput = document.getElementById('passwordInput');
-    const submitBtn = document.getElementById('submitPassword');
-    const wrapper = document.getElementById('wrapper');
-    const boxMail = document.querySelector('.boxMail');
-    const closeMail = boxMail.querySelector('i.fa-xmark');
-    const btnLetter = document.getElementById('btn__letter');
-    const btnMusic = document.getElementById('btn__music');
-    const bgMusic = document.getElementById('bgmusic');
+ let datetxt = "6 June";
+    let datatxtletter = "My love. You are a very special girl. I always silently thank you for coming into my life. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💕";
+    let titleLetter = "To you";
+    let charArrDate = datetxt.split('');
+    let charArrDateLetter = datatxtletter.split('');
+    let charArrTitle = titleLetter.split('');
+    let currentIndex = 0;
+    let currentIndexLetter = 0;
+    let currentIndexTitle = 0;
+    let date__of__birth = document.querySelector(".date__of__birth span");
+    let text__letter = document.querySelector(".text__letter p");
+    setTimeout(function () {
+        timeDatetxt = setInterval(function () {
+            if (currentIndex < charArrDate.length) {
+                date__of__birth.textContent += charArrDate[currentIndex];
+                currentIndex++;
+            }
+            else {
+                let i = document.createElement("i");
+                i.className = "fa-solid fa-star"
+                document.querySelector(".date__of__birth").prepend(i)
+                document.querySelector(".date__of__birth").appendChild(i.cloneNode(true))
+                clearInterval(timeDatetxt)
+            }
+        }, 100)
+    }, 12000)
 
-    // Initially hide main wrapper
-    wrapper.style.display = 'none';
+    var intervalContent;
+    var intervalTitle;
+    $("#btn__letter").on("click", function () {
+        $(".box__letter").slideDown()
+        setTimeout(function () {
+            $(".letter__border").slideDown();
+        }, 1000)
+        setTimeout(function () {
+            intervalTitle = setInterval(function () {
+                if (currentIndexTitle < charArrTitle.length) {
+                    document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+                    let i = document.createElement("i");
+                    i.className = "fa-solid fa-heart"
+                    document.querySelector(".title__letter").appendChild(i)
+                    currentIndexTitle++;
+                }
+                else {
+                    clearInterval(intervalTitle)
+                }
+            }, 100)
+        }, 2000)
+        setTimeout(function () {
+            document.querySelector("#heart__letter").classList.add("animationOp");
+            document.querySelector(".love__img").classList.add("animationOp");
+            document.querySelector("#mewmew").classList.add("animationOp");
+        }, 2800)
+        setTimeout(function () {
+            document.querySelectorAll(".heart").forEach((item) => {
+                item.classList.add("animation")
+            })
+        }, 3500)
+        setTimeout(function () {
+            intervalContent = setInterval(function () {
+                if (currentIndexLetter < charArrDateLetter.length) {
+                    text__letter.textContent += charArrDateLetter[currentIndexLetter];
+                    currentIndexLetter++;
+                }
+                else {
+                    clearInterval(intervalContent)
+                }
+            }, 50)
+        }, 6000)
+    })
+    $(".close").on("click", function () {
+        clearInterval(intervalContent)
+        document.querySelector(".title__letter").textContent = "";
+        text__letter.textContent = "";
+        currentIndexLetter = 0
+        currentIndexTitle = 0
+        document.querySelector("#heart__letter").classList.remove("animationOp");
+        document.querySelector(".love__img").classList.remove("animationOp");
+        document.querySelector("#mewmew").classList.remove("animationOp");
+        document.querySelectorAll(".heart").forEach((item) => {
+            item.classList.remove("animation")
+        })
+        $(".box__letter").slideUp();
+        $(".letter__border").slideUp();
+    })
 
+
+
+    let mailBox = document.querySelector('.mail')
+    let boxmail = document.querySelector('.boxMail')
+    var close = document.querySelector('.fa-xmark')
+    mailBox.onclick = function () {
+        mailBox.classList.toggle('active')
+        boxmail.classList.add('active')
+    }
+
+    close.addEventListener('click', function () {
+        boxmail.classList.remove('active')
+    })
+    const musicBtn = document.getElementById('btn__music');
+const bgMusic = document.getElementById('bgmusic');
+let musicPlaying = false;
+
+musicBtn.onclick = () => {
+  if (!musicPlaying) {
+    bgMusic.play();
+    musicBtn.querySelector('i').className = "fa-solid fa-pause";
+    musicBtn.querySelector('.music-icon').firstChild.nodeValue = "Pause Music ";
+    musicPlaying = true;
+  } else {
+    bgMusic.pause();
+    musicBtn.querySelector('i').className = "fa-solid fa-music";
+    musicBtn.querySelector('.music-icon').firstChild.nodeValue = "Play Music ";
+    musicPlaying = false;
+  }
+};
+// Auto revert button if music ends
+bgMusic.onended = () => {
+  musicBtn.querySelector('i').className = "fa-solid fa-music";
+  musicBtn.querySelector('.music-icon').firstChild.nodeValue = "Play Music ";
+  musicPlaying = false;
+};
     // Show wrapper after correct password
     submitBtn.onclick = function () {
       if (passwordInput.value === "shivani") {
@@ -321,3 +428,4 @@
 
 </body>
 </html>
+
