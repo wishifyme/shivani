@@ -75,7 +75,7 @@
 </div>
 
 <!-- Main website content starts here -->
-<div id="wrapper">
+<div id="wrapper" style="display:none;">
   <div class="flag__birthday">
     <img src="./1.png" alt="" width="350" class="flag__left" />
     <img src="1.png" alt="" width="350" class="flag__right" />
@@ -184,7 +184,7 @@
   </div>
 
   <!-- Mail box, photo reel, footer etc. -->
-  <div class="boxMail">
+  <div class="boxMail" style="display:none;">
     <i class="fa-solid fa-xmark"></i>
     <div class="boxMail-container">
       <div class="card1">
@@ -243,19 +243,21 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // Password modal related
     const modal = document.getElementById('passwordModal');
     const passwordInput = document.getElementById('passwordInput');
     const submitBtn = document.getElementById('submitPassword');
     const wrapper = document.getElementById("wrapper");
+    const boxMail = document.querySelector(".boxMail");
+    const closeMail = boxMail.querySelector("i.fa-xmark");
 
-    // Show wrapper but blurred initially
-    wrapper.style.display = "block";
-    wrapper.classList.add("blur");
-
+    // Hide wrapper initially and blur (done via CSS display:none)
+    // Show wrapper when correct password entered
     submitBtn.onclick = function () {
       if (passwordInput.value === "shivani") {
         modal.style.display = "none"; // Hide modal
-        wrapper.classList.remove("blur"); // Remove blur
+        wrapper.style.display = "block";
+        wrapper.classList.remove("blur"); // Remove blur if added
       } else {
         alert("Incorrect password. Please try again.");
         passwordInput.value = "";
@@ -270,9 +272,28 @@
     });
 
     passwordInput.focus();
+
+    // Button: Play Music
+    document.getElementById('btn__music').addEventListener('click', function() {
+      const music = document.getElementById('bgmusic');
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    });
+
+    // Button: Click Here to open message box
+    document.getElementById('btn__letter').addEventListener('click', function() {
+      boxMail.style.display = "block";
+    });
+
+    // Close button for message box
+    closeMail.addEventListener('click', function() {
+      boxMail.style.display = "none";
+    });
   });
 </script>
 
 </body>
 </html>
-
