@@ -234,25 +234,24 @@
   </div>
   Made with ❤️ — Open the page on a phone for a sweeter feel.
 </footer>
-</div>
 
-<!-- Existing Scripts (your existing code) -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<!-- Existing Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 
 <script>
-  // Your existing scripts here, plus the password validation
+  // Your password validation script
   document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById('passwordModal');
     const passwordInput = document.getElementById('passwordInput');
     const submitBtn = document.getElementById('submitPassword');
 
-    // Show only after password is validated
+    // Hide main content initially
     document.getElementById("wrapper").style.display = "none";
 
     submitBtn.onclick = function () {
       if (passwordInput.value === "shivani") {
         modal.style.display = "none"; // Hide modal
-        document.getElementById("wrapper").style.display = "block"; // Show website
+        document.getElementById("wrapper").style.display = "block"; // Show content
       } else {
         alert("Incorrect password. Please try again.");
         passwordInput.value = "";
@@ -260,14 +259,12 @@
       }
     };
 
-    // Optional: press Enter to submit
     passwordInput.addEventListener("keyup", function (event) {
       if (event.key === "Enter") {
         submitBtn.click();
       }
     });
 
-    // Auto focus input
     passwordInput.focus();
   });
 </script>
